@@ -9,8 +9,7 @@ function HomePageCom(props) {
         <div>
             <Banner></Banner>
             <Product></Product>
-            <Offer></Offer>
-            <Newcollection></Newcollection>
+            {/* <Offer></Offer> */}
             <Sendmessage></Sendmessage>
         </div>
     );

@@ -39,36 +39,7 @@ function Navbar(props) {
                                     <span>Home</span>
                                 </NavLink>
                             </li>
-                            <li className="md:px-4 md:py-2 font-bold">
-                                <NavLink
-                                    to="/mens"
-                                    className={({ isActive }) => isActive ? "border-b-2 pb-1 text-indigo-600 border-indigo-500  flex items-center gap-x-2" : " flex items-center gap-x-2"}
-                                >
-                                    <MdPeople size={20} />
-
-                                    <span>Men's</span>
-                                </NavLink>
-                            </li>
-                            <li className="md:px-4 md:py-2 font-bold">
-                                <NavLink
-                                    to="/womens"
-                                    className={({ isActive }) => isActive ? "border-b-2 pb-1 text-indigo-600 border-indigo-500  flex items-center gap-x-2" : " flex items-center gap-x-2"}
-                                >
-                                    <GrRestroomWomen size={20} />
-
-                                    <span>Women's</span>
-                                </NavLink>
-                            </li>
-                            <li className="md:px-4 md:py-2 font-bold">
-                                <NavLink
-                                    to="/kids"
-                                    className={({ isActive }) => isActive ? "border-b-2 pb-1 text-indigo-600 border-indigo-500  flex items-center gap-x-2" : " flex items-center gap-x-2"}
-                                >
-                                    <LiaBabySolid size={20} />
-
-                                    <span>Kid's</span>
-                                </NavLink>
-                            </li>
+                        
                         </ul>
                     </div>
                     <a className="text-3xl font-extrabold uppercase text-xl">Mahin</a>
@@ -86,46 +57,7 @@ function Navbar(props) {
                                 <span>Home</span>
                             </NavLink>
                         </li>
-                        <li className="md:px-4 md:py-2 font-bold">
-                            <NavLink
-                                to="/mens"
-                                className={({ isActive }) => isActive ? "border-b-2 pb-1 text-indigo-600 border-indigo-500  flex items-center gap-x-2" : " flex items-center gap-x-2"}
-                            >
-                                <MdPeople size={20} />
-
-                                <span>Men's</span>
-                            </NavLink>
-                        </li>
-                        <li className="md:px-4 md:py-2 font-bold">
-                            <NavLink
-                                to="/womens"
-                                className={({ isActive }) => isActive ? "border-b-2 pb-1 text-indigo-600 border-indigo-500  flex items-center gap-x-2" : " flex items-center gap-x-2"}
-                            >
-                                <GrRestroomWomen size={20} />
-
-                                <span>Women's</span>
-                            </NavLink>
-                        </li>
-                        <li className="md:px-4 md:py-2 font-bold">
-                            <NavLink
-                                to="/kids"
-                                className={({ isActive }) => isActive ? "border-b-2 pb-1 text-indigo-600 border-indigo-500  flex items-center gap-x-2" : " flex items-center gap-x-2"}
-                            >
-                                <LiaBabySolid size={20} />
-
-                                <span>Kid's</span>
-                            </NavLink>
-                        </li>
-                        <li className="md:px-4 md:py-2 font-bold">
-                            <NavLink
-                                to="/dashboard"
-                                className={({ isActive }) => isActive ? "border-b-2 pb-1 text-indigo-600 border-indigo-500  flex items-center gap-x-2" : " flex items-center gap-x-2"}
-                            >
-                                <MdDashboard size={20} />
-
-                                <span>Dashboard</span>
-                            </NavLink>
-                        </li>
+                   
 
 
                     </ul>

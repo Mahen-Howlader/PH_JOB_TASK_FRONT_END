@@ -1,4 +1,5 @@
-import { FaStar } from "react-icons/fa";
+import { Rating } from "@smastrom/react-rating";
+import '@smastrom/react-rating/style.css';
 
 function Popularproductcard({ product }) {
     console.log(product)
@@ -15,12 +16,14 @@ function Popularproductcard({ product }) {
                         <span className="text-xl font-medium  text-black">Price : {product?.new_price}</span>
                         <span className="text-xl font-medium line-through text-gray-600">Price : {product?.old_price}</span>
                         <div className="flex">
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
-                        <FaStar />
+                            <Rating
+                                style={{ maxWidth: 100 }}
+                                value={product?.rating}
+                                key={product?.rating}
+                                readOnly
+                            />
                         </div>
+                        <p>Date : {product?.creation_date_time}</p>
                     </div>
                 </div>
             </a>
