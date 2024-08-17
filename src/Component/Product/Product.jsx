@@ -8,13 +8,14 @@ import { useState } from 'react';
 function Product() {
     const [perPage, setPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(0)
+    const [search, setSearch] = useState("");
     const { error, data, isLoading: loadingProduct } = useQuery({
-        queryKey: ['populardata'],
+        queryKey: ['populardata', currentPage, perPage,search], // Adding perPage as a dependency
         queryFn: async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_API}/populardata?sort=asc`);
+            const { data } = await axios.get(`${import.meta.env.VITE_API}/populardata?page=${currentPage}&size=${perPage}&search=${search}`);
             return data;
         }
-    })
+    });
     const { data: countData, isLoading: dataLoading } = useQuery({
         queryKey: ['productcount'],
         queryFn: async () => {
@@ -45,7 +46,7 @@ function Product() {
 
 
     function handelNextPage() {
-        if (currentPage < page.length -1) {
+        if (currentPage < page.length - 1) {
             setCurrentPage(currentPage + 1)
         }
     }
@@ -55,11 +56,43 @@ function Product() {
         }
     }
 
+
+    function handelFromSubmit(e) {
+        e.preventDefault()
+        setSearch(e.target.search.value);
+    }
+
+
     return (
         <div >
             <div className='mt-20'>
                 <h2 className='text-center pb-5 text-3xl uppercase font-bold'>Popular Product</h2>
                 <hr className='h-[3px] md:w-1/3 mx-auto bg-gradient-to-l from-transparent via-black to-transparent  mb-10' />
+                <form className="max-w-md mx-auto mb-5" onSubmit={handelFromSubmit}>
+                    <label htmlFor="default-search" className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+                    <div className="relative">
+                        <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                            <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
+                            </svg>
+                        </div>
+                        <input
+                            type="search"
+                            name='search'
+                            id="default-search"
+                            className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder="Search Mockups, Logos..."
+                            required
+                        />
+                        <button
+                            type="submit"
+                            className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        >
+                            Search
+                        </button>
+                    </div>
+                </form>
+
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
                     {data?.map((item, index) => {
                         return <Popularproductcard key={index} product={item}></Popularproductcard>
@@ -127,7 +160,6 @@ function Product() {
                     </select>
 
                 </div>
-
             </div>
         </div>
     );
