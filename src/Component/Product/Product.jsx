@@ -5,12 +5,13 @@ import Loading from '../Loading/Loading';
 import Skeleton from '../Loading/Skeleton';
 import Banner from '../Banner/Banner';
 import { useState } from 'react';
+import ProductSorting from '../ProductSorting/ProductSorting';
 function Product() {
     const [perPage, setPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(0)
     const [search, setSearch] = useState("");
     const { error, data, isLoading: loadingProduct } = useQuery({
-        queryKey: ['populardata', currentPage, perPage,search], // Adding perPage as a dependency
+        queryKey: ['populardata', currentPage, perPage, search], // Adding perPage as a dependency
         queryFn: async () => {
             const { data } = await axios.get(`${import.meta.env.VITE_API}/populardata?page=${currentPage}&size=${perPage}&search=${search}`);
             return data;
@@ -92,6 +93,70 @@ function Product() {
                         </button>
                     </div>
                 </form>
+                {/* filtering */}
+                <div className="flex gap-6 p-4 max-w-7xl mx-auto">
+                    {/* Filter Panel */}
+                    <div className="w-1/4 bg-white p-4 rounded-lg shadow-md">
+                        <h2 className="text-lg font-semibold mb-4">Filters</h2>
+
+                        {/* Brand Name Filter */}
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">Brand Name</label>
+                            <select
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            >
+                                <option value="">All Brands</option>
+                                <option value="brand1">Brand 1</option>
+                                <option value="brand2">Brand 2</option>
+                                {/* Add more brands as options */}
+                            </select>
+                        </div>
+
+                        {/* Category Name Filter */}
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">Category Name</label>
+                            <select
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            >
+                                <option value="">All Categories</option>
+                                <option value="category1">Category 1</option>
+                                <option value="category2">Category 2</option>
+                                {/* Add more categories as options */}
+                            </select>
+                        </div>
+
+                        {/* Price Range Filter */}
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700">Price Range</label>
+                            <select
+                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                            >
+                                <option value="">All Prices</option>
+                                <option value="0-50">$0 - $50</option>
+                                <option value="50-100">$50 - $100</option>
+                                <option value="100-200">$100 - $200</option>
+                                {/* Add more price ranges as options */}
+                            </select>
+                        </div>
+
+                        <button
+                            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                        >
+                            Apply Filters
+                        </button>
+                    </div>
+
+                </div>
+
+                {/* sort  */}
+    
+
+
+
+
+                {/* ProductSorting */}
+                <ProductSorting></ProductSorting>
+
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
                     {data?.map((item, index) => {
