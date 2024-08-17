@@ -1,8 +1,7 @@
 import { Rating } from "@smastrom/react-rating";
 import '@smastrom/react-rating/style.css';
-
 function Popularproductcard({ product }) {
-    console.log(product)
+    // console.log(product)
     return (
         <div>
             <a className="p-3  border-2 rounded-lg bg-[#EBEBEB]  hover:shadow-2xl hover:shadow-blue-500/20 flex flex-col items-center"
