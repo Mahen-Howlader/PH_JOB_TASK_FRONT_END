@@ -6,8 +6,8 @@ import Skeleton from '../Loading/Skeleton';
 import Banner from '../Banner/Banner';
 import { useState } from 'react';
 function Product() {
-    const [perPage,setPerPage] = useState(10);
-    const [currentPage,setCurrentPage] = useState(0)
+    const [perPage, setPerPage] = useState(10);
+    const [currentPage, setCurrentPage] = useState(0)
     const { error, data, isLoading: loadingProduct } = useQuery({
         queryKey: ['populardata'],
         queryFn: async () => {
@@ -36,11 +36,23 @@ function Product() {
     // console.log(page);
 
 
-    function handelPerPage(e){
+    function handelPerPage(e) {
         console.log(e.target.value)
         const num = parseInt(e.target.value);
         setPerPage(num)
         setCurrentPage(0)
+    }
+
+
+    function handelNextPage() {
+        if (currentPage < page.length -1) {
+            setCurrentPage(currentPage + 1)
+        }
+    }
+    function handelPrePage() {
+        if (currentPage > 0) {
+            setCurrentPage(currentPage - 1)
+        }
     }
 
     return (
@@ -56,7 +68,7 @@ function Product() {
                 <div className="flex gap-x-10 mt-6">
                     <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                         <a
-                            href="#"
+                            onClick={handelPrePage}
                             className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                         >
                             <span className="sr-only">Previous</span>
@@ -79,14 +91,14 @@ function Product() {
                                     onClick={() => setCurrentPage(val)}
                                     className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700  ${currentPage === val && "bg-yellow-600"}`}
                                 >
-                                    {val }
+                                    {val}
                                 </a>
                             })
                         }
 
 
                         <a
-                            href="#"
+                            onClick={handelNextPage}
                             className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                         >
                             <span className="sr-only">Next</span>
