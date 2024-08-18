@@ -9,11 +9,14 @@ import ProductSorting from '../ProductSorting/ProductSorting';
 function Product() {
     const [perPage, setPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(0)
+    
     const [search, setSearch] = useState("");
+    const [sort, setSort] = useState("");
+    console.log(sort)
     const { error, data, isLoading: loadingProduct } = useQuery({
-        queryKey: ['populardata', currentPage, perPage, search], // Adding perPage as a dependency
+        queryKey: ['populardata', currentPage, perPage, search,sort], // Adding perPage as a dependency
         queryFn: async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_API}/populardata?page=${currentPage}&size=${perPage}&search=${search}`);
+            const { data } = await axios.get(`${import.meta.env.VITE_API}/populardata?page=${currentPage}&size=${perPage}&search=${search}&sort=${sort}`);
             return data;
         }
     });
@@ -39,7 +42,7 @@ function Product() {
 
 
     function handelPerPage(e) {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         const num = parseInt(e.target.value);
         setPerPage(num)
         setCurrentPage(0)
@@ -61,6 +64,12 @@ function Product() {
     function handelFromSubmit(e) {
         e.preventDefault()
         setSearch(e.target.search.value);
+    }
+
+    // sort
+    function handelSortByFun(e) {
+        setSort(e.target.value);
+        // console.log(e.target.value)
     }
 
 
@@ -155,7 +164,7 @@ function Product() {
 
 
                 {/* ProductSorting */}
-                <ProductSorting></ProductSorting>
+                <ProductSorting sort={sort} handelSortByFun={handelSortByFun}></ProductSorting>
 
 
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10'>
