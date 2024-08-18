@@ -9,14 +9,17 @@ import ProductSorting from '../ProductSorting/ProductSorting';
 function Product() {
     const [perPage, setPerPage] = useState(10);
     const [currentPage, setCurrentPage] = useState(0)
-    
+
     const [search, setSearch] = useState("");
     const [sort, setSort] = useState("");
-    console.log(sort)
+    const [brand, setBrand] = useState("");
+    const [category, setCategory] = useState("");
+    const [range, setRange] = useState("");
+    // console.log(sort)
     const { error, data, isLoading: loadingProduct } = useQuery({
-        queryKey: ['populardata', currentPage, perPage, search,sort], // Adding perPage as a dependency
+        queryKey: ['populardata', currentPage, perPage, search, sort, brand, category, range], // Adding perPage as a dependency
         queryFn: async () => {
-            const { data } = await axios.get(`${import.meta.env.VITE_API}/populardata?page=${currentPage}&size=${perPage}&search=${search}&sort=${sort}`);
+            const { data } = await axios.get(`${import.meta.env.VITE_API}/populardata?page=${currentPage}&size=${perPage}&search=${search}&sort=${sort}&filterBrand=${brand}&filterCate=${category}&filterRange=${range}`);
             return data;
         }
     });
@@ -72,6 +75,18 @@ function Product() {
         // console.log(e.target.value)
     }
 
+    function handelAllBrands(e) {
+        console.log(e.target.value);
+        setBrand(e.target.value);
+    }
+    function handelAllCategory(e) {
+        console.log(e.target.value);
+        setCategory(e.target.value);
+    }
+    function handelAllRange(e) {
+        console.log(e.target.value);
+        setRange(e.target.value);
+    }
 
     return (
         <div >
@@ -112,11 +127,14 @@ function Product() {
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Brand Name</label>
                             <select
+                                value={brand}
+                                onChange={handelAllBrands}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             >
                                 <option value="">All Brands</option>
-                                <option value="brand1">Brand 1</option>
-                                <option value="brand2">Brand 2</option>
+                                <option value="Valentino">Valentino</option>
+                                <option value="Prada">Prada</option>
+                                <option value="Dior">Dior</option>
                                 {/* Add more brands as options */}
                             </select>
                         </div>
@@ -125,12 +143,14 @@ function Product() {
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Category Name</label>
                             <select
+                                value={category}
+                                onChange={handelAllCategory}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             >
                                 <option value="">All Categories</option>
-                                <option value="category1">Category 1</option>
-                                <option value="category2">Category 2</option>
-                                {/* Add more categories as options */}
+                                <option value="women">Women's</option>
+                                <option value="men">Men's</option>
+                                <option value="kid">Kid's</option>
                             </select>
                         </div>
 
@@ -138,6 +158,8 @@ function Product() {
                         <div className="mb-4">
                             <label className="block text-sm font-medium text-gray-700">Price Range</label>
                             <select
+                                value={range}
+                                onChange={handelAllRange}
                                 className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             >
                                 <option value="">All Prices</option>
@@ -147,21 +169,9 @@ function Product() {
                                 {/* Add more price ranges as options */}
                             </select>
                         </div>
-
-                        <button
-                            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
-                        >
-                            Apply Filters
-                        </button>
                     </div>
 
                 </div>
-
-                {/* sort  */}
-    
-
-
-
 
                 {/* ProductSorting */}
                 <ProductSorting sort={sort} handelSortByFun={handelSortByFun}></ProductSorting>
